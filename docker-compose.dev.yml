@@ -1,0 +1,15 @@
+version: "3.4"
+
+services:
+  api:
+    build: 
+      context: .
+      target: development
+    volumes:
+      - ./:/usr/src/app
+      - /usr/app/node_modules
+    ports:
+      - 8080:8080
+    env_file:
+      - .env.dev
+    command: npm run dev
