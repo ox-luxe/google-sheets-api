@@ -21,7 +21,6 @@ name: Build and Deploy to Cloud Run
 env:
   PROJECT_ID: ${{ secrets.GCP_PROJECT }}
   SERVICE: google-sheets-api
-  REGION: asia-southeast1-a
 
 jobs:
   deploy:
