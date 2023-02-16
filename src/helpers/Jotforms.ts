@@ -257,7 +257,7 @@ class ConsignmentForm extends Jotform {
         "",
         "",
         prod["Sales Reserve Price* (S$)"],
-        prod["Acquisition Price (S$)"],
+        "",
         "",
         "",
         "",
