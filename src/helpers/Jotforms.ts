@@ -38,6 +38,10 @@ class Jotform {
     }
   }
 
+  getFormSubmissionReference() {
+    return this.inboundProducts.q5_formId5;
+  }
+
   // methods to extract common product attributes from both forms
     getId() {
     return this.inboundProducts.slug.split("/")[1];
@@ -155,12 +159,12 @@ class AcquisitionForm extends Jotform {
     return productDetails.map((prod: AcquisitionProduct) => {
       // empty strings below represent cells in google sheet that don't required automated inputs 
       return [
-        "",
+        "A",
         this.getSellerReachOut(),
         this.getHandoverDate(),
         "",
         "",
-        "",
+        this.getFormSubmissionReference(),
         this.getProductSku(),
         "",
         prod.Brand,
@@ -236,12 +240,12 @@ class ConsignmentForm extends Jotform {
     return productDetails.map((prod: ConsignmentProduct) => {
       // empty strings below represent cells in google sheet that don't required automated inputs 
       return [
-        "",
+        "C",
         this.getSellerReachOut(),
         this.getHandoverDate(),
         "",
         "",
-        "",
+        this.getFormSubmissionReference(),
         this.getProductSku(),
         "",
         prod.Brand,

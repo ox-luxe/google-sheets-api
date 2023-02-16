@@ -7,6 +7,7 @@ async function addNewProducts(req: Request, res: Response) {
   const form = new Jotform(inputs);
   const formIdentity = form.identity();
   const gsheet = new GoogleSheet();
+  console.log(inputs);
   
   try {
     const lastUsedRow = await gsheet.getLastUsedRowIndex(process.env.GOOGLE_SHEET_ID);
@@ -14,6 +15,8 @@ async function addNewProducts(req: Request, res: Response) {
 
       const aquisitionForm = new AcquisitionForm(inputs);
       const formattedData: string[][] = aquisitionForm.getProductsWithAcquisitionDetails();
+      console.log(formattedData);
+      
       const requiredRowsForGsheet = aquisitionForm.addCalculatedCellsInProductRows(formattedData, lastUsedRow);
 
       await gsheet.appendRowsOfProducts(process.env.GOOGLE_SHEET_ID, requiredRowsForGsheet);
