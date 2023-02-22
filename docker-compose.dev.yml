@@ -1,5 +1,4 @@
-version: "3.4"
-
+version: '3.3'
 services:
   api:
     build: 
@@ -11,5 +10,24 @@ services:
     ports:
       - 8080:8080
     env_file:
-      - .env.dev
-    command: npm run dev
+      - .env.api.dev
+    command: 
+      - /bin/sh
+      - -c
+      - npm run dev
+
+  db:
+    image: mysql:8.0
+    restart: always
+    env_file:
+      - .env.mysql.dev
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+      # Where our data will be persisted
+    volumes:
+      - my-db:/var/lib/mysql
+# Names our volume
+volumes:
+  my-db:
