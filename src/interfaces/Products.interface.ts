@@ -1,32 +1,26 @@
-interface AcquiredProducts extends InboundProducts {
-  q74_sellerReach: string;
-  q86_vendorsName: string; // vendor name
-}
-interface ConsignedProducts extends InboundProducts {
-  q73_sellerReach: string;
-  q22_vendorsName: string;
-}
 // common attributes in both consignment and acquisition form's submitted JSON data
 interface InboundProducts {
+  vendorsName: string;
+  sellerReach: string;
   slug: string;
-  q3_sellersName: string;
-  q9_sellersId: string;
-  q10_sellersContact: string;
-  q13_sellersAddress: string;
-  q14_sellersEmail: string;
-  q16_handoverDate: {
+  sellersName: string;
+  sellersId: string;
+  sellersContact: string;
+  sellersAddress: string;
+  sellersEmail: string;
+  handoverDate: {
     day: string;
     month: string;
     year: string;
   };
-  q15_handoverTime: {
+  handoverTime: {
     timeInput: string;
     hourSelect: string;
     minuteSelect: string;
     ampm: string;
   };
-  q8_test: string; // product details
-  q5_formId5: string;
+  test: string; // product details
+  formId5: string;
 }
 
 // individual Product Attributes
@@ -47,8 +41,6 @@ interface Product {
 }
 
 export {
-  ConsignedProducts,
-  AcquiredProducts,
   InboundProducts,
   ConsignmentProduct,
   AcquisitionProduct,
