@@ -2,28 +2,25 @@ import { Request, Response } from "express";
 import { GoogleSheet } from "../services/GoogleSheetService";
 import { Jotform, AcquisitionForm, ConsignmentForm } from "../helpers/Jotforms";
 
-async function addNewProducts(req: Request, res: Response) {
+async function addNewProducts (req: Request, res: Response) {
   const inputs = req.body;
   const form = new Jotform(inputs);
   const formIdentity = form.identity();
   const gsheet = new GoogleSheet();
-  console.log(inputs);
   
-  try {
+  try {    
     const lastUsedRow = await gsheet.getLastUsedRowIndex(process.env.GOOGLE_SHEET_ID);
     if (formIdentity === "Acquisition") {
 
       const aquisitionForm = new AcquisitionForm(inputs);
-      const formattedData: string[][] = aquisitionForm.getProductsWithAcquisitionDetails();
-      console.log(formattedData);
-      
+      const formattedData: string[][] = await aquisitionForm.getProductsWithAcquisitionDetails();
       const requiredRowsForGsheet = aquisitionForm.addCalculatedCellsInProductRows(formattedData, lastUsedRow);
 
       await gsheet.appendRowsOfProducts(process.env.GOOGLE_SHEET_ID, requiredRowsForGsheet);
     } else if (formIdentity === "Consignment") {
 
       const consignmentForm = new ConsignmentForm(inputs);
-      const formattedData: string[][] = consignmentForm.getProductsWithConsignmentDetails();
+      const formattedData: string[][] = await consignmentForm.getProductsWithConsignmentDetails();
       const requiredRowsForGsheet = consignmentForm.addCalculatedCellsInProductRows(formattedData, lastUsedRow);
       
       await gsheet.appendRowsOfProducts(process.env.GOOGLE_SHEET_ID, requiredRowsForGsheet); 
