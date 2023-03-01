@@ -44,7 +44,6 @@ class GoogleSheet {
       scopes: "https://www.googleapis.com/auth/spreadsheets",
     });
     const service = google.sheets({ version: "v4", auth });
-    // console.log(_values);
 
     try {
       const result = await service.spreadsheets.values.append({

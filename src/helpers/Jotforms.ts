@@ -156,25 +156,16 @@ class Jotform {
     try {
       const merch = new Merchandiser(merchandiserName);
       const { id } = await merch.findInfo();
-
-      console.log("merch id: " + id);
       
       const rn = new RunningNumberSKU();
-      const currentRunningNumberDetailsOfMerch =
-        await rn.queryRunningNumberOfMerchandiser(id);
-
-      console.log("current running number details of merch from db: " + currentRunningNumberDetailsOfMerch);
+      const currentRunningNumberDetailsOfMerch = await rn.queryRunningNumberOfMerchandiser(id);
       
       if (currentRunningNumberDetailsOfMerch) {
-        console.log("current running number field value from db: " +currentRunningNumberDetailsOfMerch.running_number);
-        
+  
         return currentRunningNumberDetailsOfMerch.running_number;
       } else {
-        console.log("initialising running number for merch: " + id);
         
         rn.intializeRunningNumberForMerchandiser(id);
-
-        console.log("running number initialize to 1 and returned as value");
         return 1;
       }
     } catch (error) {
@@ -184,8 +175,6 @@ class Jotform {
   async generateProductSku() {
     const vendorName = this.inboundProducts.vendorsName;
     const skuRunningNumber: number = await this.getSkuRunningNumber(vendorName);
-
-    console.log(skuRunningNumber);
 
     return (
       (this.identity() === "Acquisition" ? "S" : "C") +
