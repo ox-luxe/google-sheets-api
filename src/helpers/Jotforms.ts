@@ -4,6 +4,8 @@ import { Product } from "../models/Product";
 import { getMonthName } from "./getMonthName";
 import { convertNumberToThreeDigitString } from "./convertNumberToThreeDigitString";
 import { sanitiseFormFieldIds } from "./sanitiseFormFieldIds";
+import { getCurrentMonth } from "./getCurrentMonth";
+import { getCurrentYear } from "./getCurrentYear";
 import {
   ConsignmentProduct,
   AcquisitionProduct,
@@ -175,8 +177,8 @@ class Jotform {
 
     return (
       (this.identity() === "Acquisition" ? "S" : "C") +
-      this.inboundProducts.handoverDate.year.slice(2, 4) +
-      this.inboundProducts.handoverDate.month +
+      getCurrentYear().toString().slice(2, 4) +
+      getCurrentMonth().toLocaleString("en-US", {minimumIntegerDigits: 2}) +
       convertNumberToThreeDigitString(skuRunningNumber) +
       this.getVendorNameInitials()
     );
