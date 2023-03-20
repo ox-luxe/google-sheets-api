@@ -28,6 +28,10 @@ export class Product {
     this.product_serial = product_serial;
   }
 
+  sanitizeProductSerial(prodSerial: string) {
+    return prodSerial.replace('\'', '\\\'').toUpperCase();
+  }
+
   async save() {
     try {
       let d = new Date();
@@ -51,7 +55,7 @@ export class Product {
                     '${this.brand.toLowerCase()}', 
                     '${this.model.toLowerCase()}', 
                     '${this.color.toLowerCase()}', 
-                    '${this.product_serial.toUpperCase()}', 
+                    '${this.sanitizeProductSerial(this.product_serial)}', 
                     '${createdAtDate}'
                     );
                 `;
